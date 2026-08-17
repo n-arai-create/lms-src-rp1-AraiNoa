@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" 
-	th:replace="~{/common/layout :: layout(~{::title},~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/common/layout :: layout(~{::title},~{::body/content()})}">
+
 <head>
-<meta charset="UTF-8">
-<title>勤怠情報変更｜LMS</title>
+	<meta charset="UTF-8">
+	<title>勤怠情報変更｜LMS</title>
 </head>
+
 <body>
 
 	<!-- 完了メッセージ -->
@@ -57,7 +58,8 @@
 				</thead>
 
 				<tbody class="db">
-					<th:block th:each="attendanceManagementDto : ${attendanceManagementDtoList}" th:object="${attendanceManagementDto}">
+					<th:block th:each="attendanceManagementDto : ${attendanceManagementDtoList}"
+						th:object="${attendanceManagementDto}">
 						<tr>
 							<td class="w160">[[*{#dates.format(trainingDate, 'yyyy年M月d日(E)')}]]</td>
 							<td class="w260">[[*{sectionName}]]</td>
@@ -74,19 +76,40 @@
 	</div>
 
 	<script type="text/javascript" th:inline="javascript">
-		$(function() {
+		$(function () {
 			$("#now").text('現在の時刻は　' + getClock() + '　です。');
-			setInterval(function() {
+			setInterval(function () {
 				$("#now").text('現在の時刻は　' + getClock() + '　です。');
 			}, 1000);
 		});
 		function getClock() {
-			const today =  new Date();
+			const today = new Date();
 			const hours = ('0' + today.getHours()).slice(-2);
 			const minutes = ('0' + today.getMinutes()).slice(-2);
 			return hours + ':' + minutes;
 		}
+
+		/*<![CDATA[*/
+
+		// サーバー側でスコープ登録したBoolean値を受け取る (true または false が入る)
+		const hasNotEnter = /*[[${hasNotEnter}]]*/ false;
+
+		// 画面読み込み完了時に実行
+		window.addEventListener('DOMContentLoaded', function () {
+			/* jQueryを使っている場合は以下の記述でも画面読み込み時の操作を定義できる
+				$(document).ready(function () {
+			*/
+
+			// trueならアラートを出す
+			if (hasNotEnter) {
+				alert("過去日の勤怠に未入力があります。");
+			}
+		});
+
+		/*]]>*/
+		
 	</script>
 
 </body>
+
 </html>

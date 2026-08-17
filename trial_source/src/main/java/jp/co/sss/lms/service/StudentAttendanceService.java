@@ -1,6 +1,7 @@
 package jp.co.sss.lms.service;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -334,4 +335,15 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 
+	public Boolean notEnterCheck() throws ParseException {
+		LocalDate today = LocalDate.now();
+		
+		Integer hasNotEnterCount = tStudentAttendanceMapper.notEnterCount();
+		
+		boolean hasNotEnter = false;
+			if (hasNotEnterCount > 0) {
+				hasNotEnter = true;
+			}
+		return hasNotEnter;
+	}
 }
