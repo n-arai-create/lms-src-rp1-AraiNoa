@@ -1,7 +1,6 @@
 package jp.co.sss.lms.service;
 
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -336,14 +335,23 @@ public class StudentAttendanceService {
 	}
 
 	public Boolean notEnterCheck() throws ParseException {
-		LocalDate today = LocalDate.now();
-		
-		Integer hasNotEnterCount = tStudentAttendanceMapper.notEnterCount();
-		
-		boolean hasNotEnter = false;
-			if (hasNotEnterCount > 0) {
-				hasNotEnter = true;
-			}
-		return hasNotEnter;
+		// 当日日付
+		Date today = new Date();
+		// 本日の研修日
+		//		Date trainingDate = attendanceUtil.getTrainingDate();
+		//フォーマットパターンを設定
+//		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+
+		Short deleteFlag = 0;
+
+		Integer hasNotEnterCount = tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(),deleteFlag, today);
+
+		//		boolean hasNotEnter = false;
+		if (hasNotEnterCount != null && hasNotEnterCount > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
+
 }

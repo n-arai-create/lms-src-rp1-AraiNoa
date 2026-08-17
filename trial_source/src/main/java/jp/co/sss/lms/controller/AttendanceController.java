@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
 import jp.co.sss.lms.form.AttendanceForm;
+import jp.co.sss.lms.mapper.TStudentAttendanceMapper;
 import jp.co.sss.lms.service.StudentAttendanceService;
+import jp.co.sss.lms.util.AttendanceUtil;
 import jp.co.sss.lms.util.Constants;
 
 /**
@@ -29,7 +31,11 @@ public class AttendanceController {
 	private StudentAttendanceService studentAttendanceService;
 	@Autowired
 	private LoginUserDto loginUserDto;
-
+	@Autowired
+	private TStudentAttendanceMapper tStudentAttendanceMapper;
+	@Autowired
+	private AttendanceUtil attendanceUtil;
+	
 	/**
 	 * 勤怠管理画面 初期表示
 	 * 
@@ -40,11 +46,29 @@ public class AttendanceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Model model) throws ParseException {
 
 		// 勤怠一覧の取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+
+//		//フォーマットパターンを設定
+//		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+		// 現在の日時
+//		Date today = new Date();
+
+//		Date trainingDate = attendanceUtil.getTrainingDate();
+//		Integer hasNotEnterCount = tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(),Constants.DB_FLG_FALSE, trainingDate);
+//		Boolean hasNotEnterCheck = studentAttendanceService.notEnterCheck();
+//		hasNotEnterCheck = false;
+//		
+//		if (hasNotEnterCount > 0) {
+//			
+//			model.addAttribute("attendanceManagementDtoList", true);
+//		}
+
+//		 Boolean hasNotEnterCheck = studentAttendanceService.notEnterCheck();
+		
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
 		return "attendance/detail";
