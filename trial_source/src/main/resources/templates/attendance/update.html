@@ -29,7 +29,9 @@
 							<th class="w140">日付</th>
 							<th class="w300">コース内容</th>
 							<th class="w70">出勤</th>
+							<th class="w70"></th>
 							<th class="w70">退勤</th>
+							<th class="w70"></th>
 							<th class="w80">中抜け時間</th>
 							<th class="w70">ステータス</th>
 							<th class="w240">備考</th>
@@ -54,14 +56,49 @@
 								</th:block>
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w300">[[${dailyAttendanceForm.sectionName}]]</td>
+<!--																<td class="w70">-->
+<!--																	<input type="text" th:name="|attendanceList[${stat.index}].trainingStartTime|"-->
+<!--																		th:value="${dailyAttendanceForm.trainingStartTime}" class="form-control" />-->
+<!--																</td>-->
+<!--																<td class="w70">-->
+<!--																	<input type="text" th:name="|attendanceList[${stat.index}].trainingEndTime|"-->
+<!--																		th:value="${dailyAttendanceForm.trainingEndTime}" class="form-control" />						</td>-->
 								<td class="w70">
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingStartTime|"
-										th:value="${dailyAttendanceForm.trainingStartTime}" class="form-control" />
+									<select name="trainingStartTimeHour" style="width: 70px; height: 35px;">
+										<option value=""></option> <!-- 未選択用 -->
+										<!-- 0から23までループ -->
+										<option th:each="h : ${#numbers.sequence(0, 23)}" th:value="${h}"
+											th:text="${#numbers.formatInteger(h, 2)}"></option>
+									</select>
+								</td>
+
+<!--								<td class="colon">:</td>-->
+								
+								<td class="w70">
+									<select name="trainingStartTimeMinute" style="width: 70px; height: 35px;">
+										<option value=""></option> <!-- 未選択用 -->
+										<!-- 0から58までループ -->
+										<option th:each="h : ${#numbers.sequence(0, 58)}" th:value="${h}"
+											th:text="${#numbers.formatInteger(h, 2)}"></option>
+									</select>
 								</td>
 								<td class="w70">
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingEndTime|"
-										th:value="${dailyAttendanceForm.trainingEndTime}" class="form-control" />
+									<select name="trainingEndTimeHour" style="width: 70px; height: 35px;">
+										<option value=""></option> <!-- 未選択用 -->
+										<!-- 0から23までループ -->
+										<option th:each="h : ${#numbers.sequence(0, 23)}" th:value="${h}"
+											th:text="${#numbers.formatInteger(h, 2)}"></option>
+									</select>
 								</td>
+								<td class="w70">
+									<select name="trainingEndTimeMinute" style="width: 70px; height: 35px;">
+										<option value=""></option> <!-- 未選択用 -->
+										<!-- 0から58までループ -->
+										<option th:each="h : ${#numbers.sequence(0, 58)}" th:value="${h}"
+											th:text="${#numbers.formatInteger(h, 2)}"></option>
+									</select>
+								</td>
+
 								<td class="w80">
 									<select th:name="|attendanceList[${stat.index}].blankTime|" class="form-control">
 										<option th:each="blankTime : ${attendanceForm.blankTimes}"
@@ -94,27 +131,6 @@
 		</div>
 	</div>
 
-<!--	<script type="text/javascript" th:inline="javascript">-->
-<!--		/*<![CDATA[*/-->
-
-<!--		// サーバー側でスコープ登録したBoolean値を受け取る (true または false が入る)-->
-<!--		const hasNotEnter = /*[[${hasNotEnter}]]*/ false;-->
-
-<!--		// 画面読み込み完了時に実行-->
-<!--		window.addEventListener('DOMContentLoaded', function () {-->
-<!--			/* jQueryを使っている場合は以下の記述でも画面読み込み時の操作を定義できる-->
-<!--				$(document).ready(function () {-->
-<!--			*/-->
-
-<!--			// trueならアラートを出す-->
-<!--			if (hasNotEnter) {-->
-<!--				alert("過去日の勤怠に未入力があります。");-->
-<!--			}-->
-<!--		});-->
-
-<!--		/*]]>*/-->
-
-<!--	</script>-->
 </body>
 
 </html>
