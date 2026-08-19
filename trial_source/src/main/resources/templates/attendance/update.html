@@ -29,11 +29,9 @@
 							<th class="w140">日付</th>
 							<th class="w300">コース内容</th>
 							<th class="w70">出勤</th>
-							<th class="w70"></th>
 							<th class="w70">退勤</th>
-							<th class="w70"></th>
-							<th class="w80">中抜け時間</th>
-							<th class="w70">ステータス</th>
+							<th class="w140">中抜け時間</th>
+							<th class="w140">ステータス</th>
 							<th class="w240">備考</th>
 						</tr>
 					</thead>
@@ -56,45 +54,40 @@
 								</th:block>
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w300">[[${dailyAttendanceForm.sectionName}]]</td>
-<!--																<td class="w70">-->
-<!--																	<input type="text" th:name="|attendanceList[${stat.index}].trainingStartTime|"-->
-<!--																		th:value="${dailyAttendanceForm.trainingStartTime}" class="form-control" />-->
-<!--																</td>-->
-<!--																<td class="w70">-->
-<!--																	<input type="text" th:name="|attendanceList[${stat.index}].trainingEndTime|"-->
-<!--																		th:value="${dailyAttendanceForm.trainingEndTime}" class="form-control" />						</td>-->
-								<td class="w70">
+								<td style="white-space: nowrap;">
 									<select name="trainingStartTimeHour" style="width: 70px; height: 35px;">
 										<option value=""></option> <!-- 未選択用 -->
 										<!-- 0から23までループ -->
 										<option th:each="h : ${#numbers.sequence(0, 23)}" th:value="${h}"
 											th:text="${#numbers.formatInteger(h, 2)}"></option>
 									</select>
-								</td>
 
-<!--								<td class="colon">:</td>-->
-								
-								<td class="w70">
+									<!-- コロン（spanで囲んで左右に数pxの隙間を入れる） -->
+									<span
+										style="font-weight: bold; font-size: 16px; color: #333; margin: 0 4px;">:</span>
+
 									<select name="trainingStartTimeMinute" style="width: 70px; height: 35px;">
 										<option value=""></option> <!-- 未選択用 -->
-										<!-- 0から58までループ -->
-										<option th:each="h : ${#numbers.sequence(0, 58)}" th:value="${h}"
+										<!-- 0から59までループ -->
+										<option th:each="h : ${#numbers.sequence(0, 59)}" th:value="${h}"
 											th:text="${#numbers.formatInteger(h, 2)}"></option>
 									</select>
 								</td>
-								<td class="w70">
+
+
+								<td style="white-space: nowrap;">
 									<select name="trainingEndTimeHour" style="width: 70px; height: 35px;">
 										<option value=""></option> <!-- 未選択用 -->
 										<!-- 0から23までループ -->
 										<option th:each="h : ${#numbers.sequence(0, 23)}" th:value="${h}"
 											th:text="${#numbers.formatInteger(h, 2)}"></option>
 									</select>
-								</td>
-								<td class="w70">
+									<span
+										style="font-weight: bold; font-size: 16px; color: #333; margin: 0 4px;">:</span>
 									<select name="trainingEndTimeMinute" style="width: 70px; height: 35px;">
 										<option value=""></option> <!-- 未選択用 -->
-										<!-- 0から58までループ -->
-										<option th:each="h : ${#numbers.sequence(0, 58)}" th:value="${h}"
+										<!-- 0から59までループ -->
+										<option th:each="h : ${#numbers.sequence(0, 59)}" th:value="${h}"
 											th:text="${#numbers.formatInteger(h, 2)}"></option>
 									</select>
 								</td>
