@@ -27,7 +27,7 @@ import jp.co.sss.lms.util.TrainingTime;
 /**
  * 勤怠情報（受講生入力）サービス
  * 
- * @author 東京ITスクール
+ * @author 荒井乃愛
  */
 @Service
 public class StudentAttendanceService {
@@ -293,6 +293,11 @@ public class StudentAttendanceService {
 
 	}
 
+	/**
+	 * 形式を変換しアドバンスフォームへ設定
+	 * 
+	 * @param attendanceForm
+	 */
 	public void formatConversion(AttendanceForm attendanceForm) {
 		for (DailyAttendanceForm form : attendanceForm.getAttendanceList()) {
 			if (form.getTrainingStartTimeHour() != null && form.getTrainingStartTimeMinute() != null) {
@@ -389,6 +394,12 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 
+	/**
+	 * 過去日の未入力チェック
+	 * 
+	 * @return 未入力チェック
+	 * @throws ParseException
+	 */
 	public Boolean notEnterCheck() throws ParseException {
 		// 当日日付
 		Date today = new Date();
