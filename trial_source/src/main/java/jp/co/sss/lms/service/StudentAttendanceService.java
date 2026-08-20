@@ -237,12 +237,14 @@ public class StudentAttendanceService {
 		for (int i = 0; i < 24; i++) {
 			hourmap.put(i, String.format("%02d", i));
 		}
+		attendanceForm.setHourmap(hourmap);
 		//分マップの作成
 		LinkedHashMap<Integer, String> minutemap = new LinkedHashMap<>();
 		minutemap.put(null, "");
 		for (int i = 0; i < 59; i++) {
 			minutemap.put(i, String.format("%02d", i));
 		}
+		attendanceForm.setMinutemap(minutemap);
 		// 勤怠管理リストの件数分、日次の勤怠フォームに移し替え
 		for (AttendanceManagementDto attendanceManagementDto : attendanceManagementDtoList) {
 			DailyAttendanceForm dailyAttendanceForm = new DailyAttendanceForm();
@@ -286,6 +288,7 @@ public class StudentAttendanceService {
 
 		}
 
+		System.out.println("★hourmapの中身: " + attendanceForm.getHourmap());
 	return attendanceForm;
 
 	}
@@ -296,14 +299,16 @@ public class StudentAttendanceService {
 				Integer startHour = form.getTrainingStartTimeHour();
 				Integer startMinute = form.getTrainingStartTimeMinute();
 				String trainingStartTime = String.format("%02d:%02d", startHour, startMinute);
-				form.setTrainingStartTime(String.valueOf(trainingStartTime));
+				form.setTrainingStartTime(trainingStartTime);
 			}
+//			System.out.println("trainingStartTime: " + form.getTrainingStartTime());
 			if (form.getTrainingEndTimeHour() != null && form.getTrainingEndTimeMinute() != null) {
 				Integer endHour = form.getTrainingEndTimeHour();
 				Integer endMinute = form.getTrainingEndTimeMinute();
 				String trainingEndTime = String.format("%02d:%02d", endHour, endMinute);
-				form.setTrainingEndTime(String.valueOf(trainingEndTime));
+				form.setTrainingEndTime(trainingEndTime);
 			}
+//			System.out.println("trainingStartTime: " + form.getTrainingStartTime());
 		}
 	}
 

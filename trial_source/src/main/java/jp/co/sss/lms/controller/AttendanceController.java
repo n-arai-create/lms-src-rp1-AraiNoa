@@ -48,6 +48,8 @@ public class AttendanceController {
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
 	public String index(Model model) throws ParseException {
 
+		//サービスクラスの呼び出し
+		studentAttendanceService.notEnterCheck();
 		// 勤怠一覧の取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
@@ -157,12 +159,19 @@ public class AttendanceController {
 	public String complete(AttendanceForm attendanceForm, Model model, BindingResult result)
 			throws ParseException {
 
+		//サービスクラスの呼び出し
+		studentAttendanceService.formatConversion(attendanceForm);
+		
 		// 更新
 		String message = studentAttendanceService.update(attendanceForm);
 		model.addAttribute("message", message);
 		// 一覧の再取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
+		
+	
+//		model.addAttribute("attendanceManagementDtoList", attendanceForm);
+		
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
 		return "attendance/detail";
